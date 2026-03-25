@@ -1,4 +1,4 @@
-import { assets } from "../assets/asset.js";
+import { assets } from "../../assets/asset";
 import { Link } from "react-router-dom";
 
 const HeroSection = () => {

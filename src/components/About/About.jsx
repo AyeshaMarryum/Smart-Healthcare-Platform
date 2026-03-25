@@ -1,4 +1,4 @@
-import { assets, cards } from "../assets/asset";
+import { assets, cards } from "../../assets/asset";
 
 const About = () => {
   return (

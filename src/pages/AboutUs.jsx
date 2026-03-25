@@ -1,7 +1,7 @@
 import React from "react";
-import About from "../components/About";
-import Rating from "../components/Rating";
-import Doctors from "../components/TopDoctors";
+import About from "../components/About/About";
+import Rating from "../components/About/Rating";
+import Doctors from "../components/Home/TopDoctors";
 
 const Aboutus = () => {
   return (

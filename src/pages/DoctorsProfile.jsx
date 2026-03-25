@@ -1,17 +1,8 @@
 import { useState } from "react";
-import {
-  Star,
-  X,
-  Calendar,
-  Clock,
-  MapPin,
-  Phone,
-  Mail,
-  Award,
-  Briefcase,
-} from "lucide-react";
+import { Star, Award, Clock, MapPin, Phone } from "lucide-react";
 import { doctors } from "../assets/asset";
-import Booking from "../components/Booking";
+import DoctorCard from "../components/Home/DoctorCards";
+import Booking from "../components/DoctorsProfile/Booking";
 
 const DoctorsProfile = () => {
   const [search, setSearch] = useState("");
@@ -31,10 +22,11 @@ const DoctorsProfile = () => {
           <h1 className="text-4xl font-bold text-gray-900 mb-5 text-center md:text-left">
             Find Doctors
           </h1>
+
           <input
             type="text"
             placeholder="Search by name or specialty..."
-            className="w-full max-w-xl mx-auto md:mx-0 px-5 py-4 rounded-xl border border-indigo-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition"
+            className="w-full max-w-xl px-5 py-4 rounded-xl border border-indigo-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
@@ -42,77 +34,21 @@ const DoctorsProfile = () => {
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-1">
           {filteredDoctors.map((doc, i) => (
-            <div
+            <DoctorCard
               key={i}
-              className="bg-white rounded-2xl border border-gray-200 shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col sm:flex-row items-center sm:items-start p-6 gap-6"
-            >
-              <img
-                src={doc.img}
-                alt={doc.name}
-                className="w-32 h-32 rounded-2xl object-cover border-4 border-indigo-100 shadow-sm shrink-0"
-              />
-
-              <div className="flex-1 w-full">
-                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
-                  <div>
-                    <h3 className="text-2xl font-bold text-gray-900">
-                      {doc.name}
-                    </h3>
-                    <p className="text-indigo-600 font-semibold text-lg mt-1">
-                      {doc.speciality}
-                    </p>
-                  </div>
-
-                  <div className="flex items-center gap-2 bg-amber-50 px-4 py-2 rounded-full text-sm font-semibold text-amber-800 border border-amber-200">
-                    <Star size={18} className="text-amber-500 fill-amber-500" />
-                    {doc.rating}
-                  </div>
-                </div>
-
-                <div className="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-4 text-gray-600 text-sm">
-                  <div className="flex items-center gap-2">
-                    <Briefcase size={18} className="text-indigo-500" />
-                    <span>{doc.experience}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Calendar size={18} className="text-indigo-500" />
-                    <span>{doc.fee}</span>
-                  </div>
-                  <div>
-                    <p className="text-xs text-gray-500 uppercase tracking-wide">
-                      Next Available
-                    </p>
-                    <p className="text-gray-800 font-medium">
-                      {doc.availability}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-3 mt-6 sm:mt-0 w-full sm:w-auto">
-                <button
-                  onClick={() => setSelectedDoctor(doc)}
-                  className="bg-indigo-100 text-indigo-700 px-6 py-3 rounded-xl font-semibold hover:bg-indigo-200 transition flex items-center justify-center gap-2 flex-1 sm:flex-none"
-                >
-                  View Profile
-                </button>
-
-                <button
-                  onClick={() => setBookingDoctor(doc)}
-                  className="bg-indigo-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-indigo-700 transition shadow-md hover:shadow-lg flex-1 sm:flex-none"
-                >
-                  Book Now
-                </button>
-              </div>
-            </div>
+              doctor={doc}
+              variant="detailed"
+              onView={setSelectedDoctor}
+              onBook={setBookingDoctor}
+            />
           ))}
-
-          {filteredDoctors.length === 0 && (
-            <p className="text-center text-gray-500 mt-12 text-xl font-medium">
-              No doctors found.
-            </p>
-          )}
         </div>
+
+        {filteredDoctors.length === 0 && (
+          <p className="text-center text-gray-500 mt-12 text-xl font-medium">
+            No doctors found.
+          </p>
+        )}
       </div>
 
       {selectedDoctor && (
@@ -147,7 +83,9 @@ const DoctorsProfile = () => {
                       <Clock size={22} className="text-indigo-600" />
                       Availability
                     </h3>
-                    <p className="text-gray-700">{selectedDoctor.availability}</p>
+                    <p className="text-gray-700">
+                      {selectedDoctor.availability}
+                    </p>
                   </div>
                 </div>
 
@@ -158,8 +96,10 @@ const DoctorsProfile = () => {
                       Location
                     </h3>
                     <p className="text-gray-700">
-                      SmartHospital Main Campus<br />
-                      123 Healthcare Plaza, Medical District<br />
+                      SmartHospital Main Campus
+                      <br />
+                      123 Healthcare Plaza, Medical District
+                      <br />
                       New York, NY 10001
                     </p>
                   </div>
@@ -175,8 +115,11 @@ const DoctorsProfile = () => {
                         +1 (555) 123-4567
                       </p>
                       <p className="flex items-center gap-3">
-                        <Mail size={18} className="text-gray-500" />
-                        {selectedDoctor.name.toLowerCase().replace(/\s+/g, ".")}@smarthospital.com
+                        <Phone size={18} className="text-gray-500" />
+                        {selectedDoctor.name
+                          .toLowerCase()
+                          .replace(/\s+/g, ".")}
+                        @smarthospital.com
                       </p>
                     </div>
                   </div>
@@ -188,7 +131,9 @@ const DoctorsProfile = () => {
                   About {selectedDoctor.name}
                 </h3>
                 <p className="text-gray-700 leading-relaxed">
-                  {selectedDoctor.name} is a highly experienced {selectedDoctor.speciality.toLowerCase()} with over {selectedDoctor.experience} of clinical practice. Specializing in complex cases and patient-centered care, {selectedDoctor.name} has helped thousands of patients achieve better health outcomes.
+                  {selectedDoctor.name} is a highly experienced{" "}
+                  {selectedDoctor.speciality.toLowerCase()} with over{" "}
+                  {selectedDoctor.experience} of clinical practice. Specializing in complex cases and patient-centered care, {selectedDoctor.name} has helped thousands of patients achieve better health outcomes.
                 </p>
                 <p className="text-gray-700 leading-relaxed mt-4">
                   Passionate about preventive medicine and latest treatment protocols. Regularly participates in national and international medical conferences.
@@ -216,10 +161,7 @@ const DoctorsProfile = () => {
       )}
 
       {bookingDoctor && (
-        <Booking
-          doctor={bookingDoctor}
-          onClose={() => setBookingDoctor(null)}
-        />
+        <Booking doctor={bookingDoctor} onClose={() => setBookingDoctor(null)} />
       )}
     </div>
   );

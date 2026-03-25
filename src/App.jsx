@@ -1,13 +1,13 @@
 import './App.css'
 import { Routes, Route } from 'react-router-dom'
-import Navbar from './components/Navbar'
+import Navbar from './components/Navbar/Navbar'
 import Home from './pages/Home'
 import LoginForm from './pages/LoginForm'
 import About from './pages/AboutUs'
 import Contactus from './pages/Contactus'
 import Services from './pages/Services'
 import DoctorsProfile from './pages/DoctorsProfile'
-import Footer from './components/Footer'
+import Footer from './components/Footer/Footer'
 
 function App() {
 

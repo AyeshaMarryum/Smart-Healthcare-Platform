@@ -1,5 +1,5 @@
 import React from "react";
-import { assets } from "../assets/asset.js";
+import { assets } from "../../assets/asset.js";
 import { NavLink, Link } from "react-router-dom";
 
 const Navbar = () => {
@@ -76,11 +76,11 @@ const Navbar = () => {
           </ul>
 
           <div className="flex items-center">
-            <Link to="/doctorsprofile">
+            <NavLink to="/doctorsprofile">
               <button className="bg-indigo-600 text-white px-5 lg:px-7 py-2 lg:py-2.5 rounded-full font-semibold hover:brightness-105 transition-all shadow-lg duration-200">
                 Book Appointment
               </button>
-            </Link>
+            </NavLink>
           </div>
         </div>
       </div>
